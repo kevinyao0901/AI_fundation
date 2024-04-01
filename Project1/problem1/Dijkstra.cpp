@@ -53,7 +53,7 @@ int main() {
         int x, y, value;
         cin >> x >> y >> value;
         graph[x].emplace_back(y, value);
-        graph[y].emplace_back(x, value); // 无向图需要添加反向边
+        graph[y].emplace_back(x, value); 
     }
 
     int result = dijkstra(graph, 1, n);
