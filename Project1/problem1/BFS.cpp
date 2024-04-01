@@ -1,59 +1,48 @@
 #include <iostream>
-#include <cstring>
 #include <vector>
 #include <queue>
-
 using namespace std;
 
-const int N = 100010;
+const int MAXN = 100005;
+vector<int> sons[MAXN];
+bool vis[MAXN];
+int step[MAXN];
 
-int n, m;
-vector<int> h[N]; // 邻接表存储
-int d[N]; // d数组为距离
-queue<int> q; // 使用STL的queue作为队列（使用BFS）
-
-void add(int a, int b) // 插入一条边
-{
-    h[a].push_back(b);
-}
-
-int bfs() // 宽搜开始！
-{
-    q.push(1); // 初始化队列
-
-    memset(d, -1, sizeof d); // 初始化距离, -1表示没有被遍历过
-
-    d[1] = 0; // 让第一个点设置为遍历过的
-
-    while (!q.empty()) // 经典宽搜框架（队列不为空时）
-    {
-        int t = q.front(); q.pop(); // 取出队头
-
-        for (auto j : h[t]) // 扩展它的每一个临边
-        {
-            if (d[j] == -1) // 假如j没有扩展过
-            {
-                d[j] = d[t] + 1; // 存储j离起点的距离，并且标记为已经访问过
-                q.push(j); // 将j入队
+void bfs(int n) {
+    vis[1] = true;
+    if (1 == n) return;
+    queue<int> q;
+    q.push(1);
+    while (!q.empty()) {
+        int now = q.front();
+        q.pop();
+        for (int i : sons[now]) {
+            if (!vis[i]) {
+                vis[i] = true;
+                q.push(i);
+                step[i] = step[now] + 1;
+                if (i == n) return;
             }
         }
     }
-
-    return d[n]; // 返回1号点到n号点的最短距离
 }
 
-int main()
-{
+int main() {
+    cin.tie(0);
+    cout.tie(0);
+    ios::sync_with_stdio(0);
+    int n, m;
     cin >> n >> m;
-
-    while (m--)
-    {
-        int a, b;
-        cin >> a >> b;
-        add(a, b); // 插入一条从a到b长度为1的边
+    for (int i = 1; i <= m; i++) {
+        int x, y;
+        cin >> x >> y;
+        sons[x].push_back(y);
+        sons[y].push_back(x);
     }
-
-    cout << bfs() << endl;
-
+    bfs(n);
+    if (!vis[n]) {
+        cout << -1;
+    }
+    else cout << step[n];
     return 0;
 }
