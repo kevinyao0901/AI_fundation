@@ -1,48 +1,54 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+
 using namespace std;
 
-const int MAXN = 100005;
-vector<int> sons[MAXN];
-bool vis[MAXN];
-int step[MAXN];
+int bfsShortestPath(vector<vector<int>>& graph, int start, int end) {
+    if (start == end) {
+        return 0;
+    }
 
-void bfs(int n) {
-    vis[1] = true;
-    if (1 == n) return;
-    queue<int> q;
-    q.push(1);
+    int numNodes = graph.size();
+    vector<bool> visited(numNodes + 1, false);
+    queue<pair<int, int>> q;
+    q.push({ start, 0 });
+    visited[start] = true;
+
     while (!q.empty()) {
-        int now = q.front();
+        int node = q.front().first;
+        int distance = q.front().second;
         q.pop();
-        for (int i : sons[now]) {
-            if (!vis[i]) {
-                vis[i] = true;
-                q.push(i);
-                step[i] = step[now] + 1;
-                if (i == n) return;
+
+        if (node == end) {
+            return distance;
+        }
+
+        for (int neighbor : graph[node]) {
+            if (!visited[neighbor]) {
+                q.push({ neighbor, distance + 1 });
+                visited[neighbor] = true;
             }
         }
     }
+
+    return -1;
 }
 
 int main() {
-    cin.tie(0);
-    cout.tie(0);
-    ios::sync_with_stdio(0);
-    int n, m;
-    cin >> n >> m;
-    for (int i = 1; i <= m; i++) {
-        int x, y;
-        cin >> x >> y;
-        sons[x].push_back(y);
-        sons[y].push_back(x);
+    int numNodes, numEdges;
+    cin >> numNodes >> numEdges;
+
+    vector<vector<int>> graph(numNodes + 1);
+
+    for (int i = 0; i < numEdges; i++) {
+        int a, b;
+        cin >> a >> b;
+        graph[a].push_back(b);
     }
-    bfs(n);
-    if (!vis[n]) {
-        cout << -1;
-    }
-    else cout << step[n];
+
+    int result = bfsShortestPath(graph, 1, numNodes);
+    cout << result;
+
     return 0;
 }
