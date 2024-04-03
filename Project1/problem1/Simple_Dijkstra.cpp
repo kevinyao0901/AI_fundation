@@ -1,56 +1,73 @@
-#include<bits/stdc++.h>
-#define default_int (10000*(n+5))
+#include <iostream>
+#include <vector>
+#include <limits>
 using namespace std;
 
-const int MAXN = 1000;
-int step[MAXN][MAXN];
-bool vis[MAXN];
+struct Edge {
+    int to;
+    int weight;
+    int next;
+};
 
-void dijkstra(int n) {
-    while (true) {
-        int now = -1;
-        for (int i = 1; i <= n; i++) {
-            if (!vis[i] && (now == -1 || step[1][i] < step[1][now]) && step[1][i] < default_int) {
-                now = i;
-            }
-        }
-        if (now == -1) break;
-        vis[now] = true;
-        for (int i = 1; i <= n; i++) {
-            if (!vis[i]) {
-                step[1][i] = min(step[1][i], step[1][now] + step[now][i]);
-            }
-        }
-    }
+const int MAX_NODES = 100000;
+const int MAX_EDGES = 1000000;
+const long long INF = numeric_limits<long long>::max();
+
+int head[MAX_NODES];
+long long dist[MAX_NODES];
+bool visited[MAX_NODES];
+
+Edge edges[MAX_EDGES];
+int edgeCount = 0;
+
+void addEdge(int from, int to, int weight) {
+    edges[edgeCount] = { to, weight, head[from] };
+    head[from] = edgeCount++;
 }
 
 int main() {
-    cin.tie(nullptr);
-    cout.tie(nullptr);
-    ios::sync_with_stdio(false);
+    int numNodes, numEdges;
+    cin >> numNodes >> numEdges;
 
-    int n, m;
-    cin >> n >> m;
+    for (int i = 0; i < MAX_NODES; ++i) {
+        head[i] = -1;
+        dist[i] = INF;
+        visited[i] = false;
+    }
 
-    for (int i = 1; i <= n; i++) {
-        for (int j = 1; j <= n; j++) {
-            if (i != j) step[i][j] = default_int;
+    dist[1] = 0;
+    for (int i = 0; i < numEdges; ++i) {
+        int from, to, weight;
+        cin >> from >> to >> weight;
+        addEdge(from, to, weight);
+    }
+
+    int current = 1;
+    while (!visited[current]) {
+        visited[current] = true;
+        for (int i = head[current]; i != -1; i = edges[i].next) {
+            int neighbor = edges[i].to;
+            int weight = edges[i].weight;
+            if (!visited[neighbor] && dist[neighbor] > dist[current] + weight) {
+                dist[neighbor] = dist[current] + weight;
+            }
         }
+        int nextNode = -1;
+        long long minDist = INF;
+        for (int i = 1; i <= numNodes; ++i) {
+            if (!visited[i] && dist[i] < minDist) {
+                minDist = dist[i];
+                nextNode = i;
+            }
+        }
+        current = nextNode;
     }
 
-    for (int i = 1; i <= m; i++) {
-        int x, y, value;
-        cin >> x >> y >> value;
-        step[x][y] = min(step[x][y], value);
-    }
-
-    dijkstra(n);
-
-    if (!vis[n]) {
+    if (dist[numNodes] == INF) {
         cout << -1;
     }
     else {
-        cout << step[1][n];
+        cout << dist[numNodes];
     }
 
     return 0;
