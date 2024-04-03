@@ -1,63 +1,64 @@
 #include <iostream>
 #include <vector>
 #include <queue>
-#include <climits>
-
+#include <limits>
 using namespace std;
 
 struct Edge {
     int to;
     int weight;
-
     Edge(int t, int w) : to(t), weight(w) {}
 };
 
-int dijkstra(const vector<vector<Edge>>& graph, int start, int end) {
-    int n = graph.size();
-    vector<int> dist(n, INT_MAX);
-    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
-
-    dist[start] = 0;
-    pq.push({ 0, start });
-
-    while (!pq.empty()) {
-        int u = pq.top().second;
-        int d = pq.top().first;
-        pq.pop();
-
-        if (d > dist[u]) continue;
-
-        for (const Edge& e : graph[u]) {
-            int v = e.to;
-            int w = e.weight;
-            if (dist[u] + w < dist[v]) {
-                dist[v] = dist[u] + w;
-                pq.push({ dist[v], v });
-            }
-        }
+struct Node {
+    int id;
+    int dist;
+    Node(int i, int d) : id(i), dist(d) {}
+    bool operator<(const Node& other) const {
+        return dist > other.dist; // 用于小顶堆
     }
-
-    return dist[end] == INT_MAX ? -1 : dist[end];
-}
+};
 
 int main() {
-    cin.tie(0);
-    ios::sync_with_stdio(false);
-
     int n, m;
     cin >> n >> m;
 
     vector<vector<Edge>> graph(n + 1);
+    vector<int> dist(n + 1, numeric_limits<int>::max());
+    vector<bool> visited(n + 1, false);
 
     for (int i = 0; i < m; ++i) {
-        int x, y, value;
-        cin >> x >> y >> value;
-        graph[x].emplace_back(y, value);
-        graph[y].emplace_back(x, value); 
+        int a, b, c;
+        cin >> a >> b >> c;
+        graph[a].emplace_back(b, c);
     }
 
-    int result = dijkstra(graph, 1, n);
-    cout << result << endl;
+    priority_queue<Node> pq;
+    dist[1] = 0;
+    pq.push(Node(1, 0));
+
+    while (!pq.empty()) {
+        int u = pq.top().id;
+        pq.pop();
+
+        if (visited[u]) continue;
+        visited[u] = true;
+
+        for (const auto& edge : graph[u]) {
+            int v = edge.to;
+            int w = edge.weight;
+
+            if (!visited[v] && dist[v] > dist[u] + w) {
+                dist[v] = dist[u] + w;
+                pq.push(Node(v, dist[v]));
+            }
+        }
+    }
+
+    if (dist[n] == numeric_limits<int>::max())
+        cout << -1;
+    else
+        cout << dist[n];
 
     return 0;
 }
