@@ -1,0 +1,42 @@
+import pynput
+import pyautogui
+import pydirectinput
+import win32api
+import win32con
+
+def lock(combined_list,mouse,x,y):
+    mouse_pos_x,mouse_pos_y=mouse.position
+    dist_list=[]
+    for aim in combined_list:
+        i=aim[0]
+        det=aim[1]
+        x_c, y_c, _, _ = det
+        dist =(x*float(x_c) - mouse_pos_x) ** 2 + (y*float(y_c) - mouse_pos_y) ** 2
+        dist_list.append(dist)
+
+    target=combined_list[dist_list.index(min(dist_list))]
+
+    tag=target[0][0]
+    x_center, y_center, width, height=target[1]
+    x_center, width =x * float(x_center) , x * float(width)
+    y_center, height =y * float(y_center) , y * float(height)
+
+# names:
+#   0: ct_body
+#   1: ct_head
+#   2: t_body
+#   3: t_head
+    # if tag == 0 or tag == 2:
+    #     pydirectinput.moveTo(int(x_center), int(y_center))
+    # elif tag == 1 or tag == 3:
+    #     pydirectinput.moveTo(int(x_center), int(y_center - 1/6 * height))
+    if tag == 0 or tag == 2:
+        move_x = int(x_center / x * 65535)
+        move_y = int(y_center / y * 65535)
+        win32api.mouse_event(win32con.MOUSEEVENTF_ABSOLUTE | win32con.MOUSEEVENTF_MOVE, move_x, move_y, 0, 0)
+    elif tag == 1 or tag == 3:
+        move_x = int(x_center / x * 65535)
+        move_y = int((y_center - 1/6 * height) / y * 65535)
+        win32api.mouse_event(win32con.MOUSEEVENTF_ABSOLUTE | win32con.MOUSEEVENTF_MOVE, move_x, move_y, 0, 0)
+
+
