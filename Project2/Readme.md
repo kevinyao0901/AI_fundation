@@ -4,6 +4,11 @@
 
 ---
 
+## 0.Aimbot code user guide 
+In case you'd like to test the correctness of the code before reading the report.
+Go to 
+[user_guide](#1)
+
 ## 1.Proj Background
 
 ### 1.1 mission profile
@@ -232,13 +237,28 @@ names: ['class0', 'class1',...]  # 类别名称
 
 通过这种方式，可以方便地对 YOLOv8 模型进行训练和评估，了解模型在不同评估指标上的性能，从而进行优化和改进。
 
+<h2 id="1">user_guide</h2>
+注：由于仓库中也存在前期训练时的一些存在问题的模型和结果，所以请以https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/cs_png的运行结果样例为准，
+同时请采用model_path=r'D:\courseware\AI基础\Lab\proj2\ultralytics-main\ultralytics-main\aim-csgo\models\best.pt'对应路径下的模型
+
 下面是在静态图片上运行模型进行预测的结果示例:
 **CT:**
-| ![Image 1](ultralytics-main\ultralytics-main\ultralytics\assets\cs.jpg) | ![Image 2](ultralytics-main\ultralytics-main\runs\detect\predict70\cs.jpg) |
+| ![Image 1](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/cs_png/cs.jpg) | ![Image 2](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/cs_png/cs_d.jpg) |
 |:------------------------------:|:------------------------------:|
 |          Origin          |          Predict          |
 
 **T:**
-| ![Image 1](ultralytics-main\ultralytics-main\ultralytics\assets\cs2.jpg) | ![Image 2](ultralytics-main\ultralytics-main\runs\detect\predict71\cs2.jpg) |
+| ![Image 1](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/cs_png/cs2.jpg) | ![Image 2](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/cs_png/cs2_d.jpg) |
 |:------------------------------:|:------------------------------:|
 |          Origin          |          predict          |
+
+
+运行测试方法：
+在\Project2\ultralytics-main\ultralytics-main>目录下运行如下命令：
+yolo task=detect mode=predict model=runs/detect/train6/weights/best.pt conf=0.25 source='ultralytics/assets/cs.jpg'
+可根据需要检测的图片替换source
+
+关于如何使用本aimbot：
+在ultralytics-main\ultralytics-main\aim-csgo\路径下直接运行main.py即可。当然可能需要配置一些python库环境。
+
+
