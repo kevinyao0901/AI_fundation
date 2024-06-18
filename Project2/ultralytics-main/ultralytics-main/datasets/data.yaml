@@ -1,0 +1,20 @@
+train: ../train/images
+val: ../valid/images
+test: ../test/images
+
+# nc: 4
+# first training with dataset cs
+# names:
+#   0: ct_head
+#   1: ct_body
+#   2: t_head
+#   3: t_body
+
+nc: 5
+# second try with dataset cs 3
+names:
+  0: CT-Body
+  1: CT-Head
+  2: Dead
+  3: T-Body
+  4: T-Head
