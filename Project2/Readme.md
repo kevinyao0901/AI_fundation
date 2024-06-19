@@ -262,5 +262,7 @@ yolo task=detect mode=predict model=runs/detect/train6/weights/best.pt conf=0.25
 
 关于如何使用本aimbot：
 在ultralytics-main\ultralytics-main\aim-csgo\路径下直接运行main.py即可。当然可能需要配置一些python库环境。
+开始运行后可输入自己的阵营ct/t，
+使用shift键开启辅助瞄准。
 
 
