@@ -4,6 +4,8 @@
 
 ---
 
+![cs2](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/Counter-Strike-2.webp)
+
 ## 0.Aimbot code user guide 
 In case you'd like to test the correctness of the code before reading the report.
 Go to 
