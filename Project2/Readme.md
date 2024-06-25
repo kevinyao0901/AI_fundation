@@ -217,25 +217,34 @@ train/images/image1.jpg
    其中，TP 是真正例，FP 是假正例。
 
 2. **Recall (召回率)**: 召回率表示实际为正样本中被模型正确预测为正样本的比例。计算公式为：
+   
    \[
    \text{Recall} = \frac{TP}{TP + FN}
    \]
+   
    其中，FN 是假负例。
 
-3. **mAP (Mean Average Precision, 平均精度均值)**: mAP 是评估目标检测模型性能的一个重要指标。它是对所有类别的平均精度 (AP) 的均值。AP 是在不同 IoU 阈值下计算的精度和召回率曲线下的面积。具体步骤如下：
+4. **mAP (Mean Average Precision, 平均精度均值)**: mAP 是评估目标检测模型性能的一个重要指标。它是对所有类别的平均精度 (AP) 的均值。AP 是在不同 IoU 阈值下计算的精度和召回率曲线下的面积。具体步骤如下：
    - 计算每个类别的 AP。
    - 计算所有类别的 AP 的平均值，即 mAP。
 
-4. **IoU (Intersection over Union, 交并比)**: IoU 是用于衡量预测边界框与真实边界框重叠程度的指标。计算公式为：
-   \[
-   \text{IoU} = \frac{\text{Intersection Area}}{\text{Union Area}}
-   \]
+5. **IoU (Intersection over Union, 交并比)**: IoU 是用于衡量预测边界框与真实边界框重叠程度的指标。计算公式为：
+   
+   $$
+    \text{IoU} = \frac{\text{Intersection Area}}{\text{Union Area}}
+    $$
+   
    IoU 值越大，表示预测边界框与真实边界框的重叠程度越高。
 
-5. **F1 Score**: F1 分数是精度和召回率的调和平均数，计算公式为：
-   \[
-   F1 = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
-   \]
+6. **F1 Score**: F1 分数是精度和召回率的调和平均数，计算公式为：
+
+   <p>
+$$
+\text{F1} = 2 \cdot \frac{\text{Precision} \cdot \text{Recall}}{\text{Precision} + \text{Recall}}
+$$
+</p>
+   
+   
    F1 分数在精度和召回率之间进行权衡，是一个综合指标。
 
 ## 2.1Procedure of the proj
