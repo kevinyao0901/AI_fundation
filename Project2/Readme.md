@@ -1,4 +1,4 @@
-![image](https://github.com/kevinyao0901/AI_fundation/assets/111503954/6137130c-2395-4744-903a-7b690ed617b5)# Proj 2 report
+# Proj 2 report
 
 ## Aimbot for cs2
 
