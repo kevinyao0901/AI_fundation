@@ -1,10 +1,32 @@
-# Proj 2 report
+![image](https://github.com/kevinyao0901/AI_fundation/assets/111503954/6137130c-2395-4744-903a-7b690ed617b5)# Proj 2 report
 
 ## Aimbot for cs2
 
 ---
 
 ![cs2](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/Counter-Strike-2.webp)
+
+## Content 
+
+```
+|__0.Aimbot code user guide
+|
+|__1.Proj Background
+|    |__1.1 mission profile
+|    |__1.2 AimBoT Preliminary Questions: Research
+|        |__1.2.1 Computer Vision Localization (Object Detection, Human Body Key Point Detection)
+|        |__1.2.2 Common AI Questions
+|
+|__2.Proj Procedure
+|    |__2.1Problems during proj & my solution
+|    |__2.2specific configuration file explanation
+|    |__2.3result evaluation
+|
+|__3.User_guid
+
+```
+
+
 
 ## 0.Aimbot code user guide 
 In case you'd like to test the correctness of the code before reading the report.
@@ -62,7 +84,7 @@ Q2: How is the dataset obtained?
 
 数据集来源于 https://universe.roboflow.com/ 网站上的公开数据集，这里选择数据集时要考虑与yolov8模型对应的数据集格式。
 
-### 1.3 Common AI Questions
+### 1.2.2 Common AI Questions
 
 #### Q1: What is pre-training, and what is fine-tuning?
 
@@ -215,45 +237,8 @@ train/images/image1.jpg
    \]
    F1 分数在精度和召回率之间进行权衡，是一个综合指标。
 
-下面是模型的具体评估结果：
-![error](result.png)
 
-<summury><details>详细分析</summury>
-
-### 性能评估
-1. **总体性能**：
-   - **mAP@0.5（70.2%）**：这个值表示在IoU阈值为0.5时，模型的平均精度是70.2%。这个结果在很多目标检测任务中是不错的，尤其是在复杂的多类别检测任务中。
-   - **mAP@0.5:0.95（38.8%）**：这个值表示在更严格的IoU阈值范围内（从0.5到0.95，步长为0.05）的平均精度。这是一个更严格的指标，38.8%在很多应用中也是可以接受的。
-
-2. **各类别性能**：
-   - **CT-Body（mAP@0.5:0.95 = 47.8%）**：这个类别的检测效果最好，精度和召回率都很高，说明模型在检测CT-Body时表现非常好。
-   - **CT-Head（mAP@0.5:0.95 = 31.7%）** 和 **T-Head（mAP@0.5:0.95 = 28.4%）**：这两个类别的性能较低，说明模型在这两个类别上可能存在一些问题，例如数据不足、数据质量不高或类别区分度不够。
-
-### 其他因素
-1. **应用场景**：
-   - 如果你的应用场景对精度要求非常高（例如医疗图像分析、安全监控等），那么这些结果可能需要进一步优化。
-   - 如果是用于一般的物体检测任务，这个结果是可以接受的。
-
-2. **数据集质量**：
-   - 模型性能在很大程度上依赖于训练数据的质量和多样性。如果数据集本身存在问题（如标签不准确、样本不均衡等），可能需要对数据集进行清理和增强。
-
-3. **模型优化**：
-   - 可以通过调整模型的超参数、进行数据增强、使用更好的训练策略等方法来提高模型的性能。
-   - 可以考虑使用迁移学习，将预训练的权重应用到你的数据集上。
-
-### 总结
-- **优点**：YOLOv8在大多数类别上的表现是不错的，尤其是在CT-Body类别上。
-- **缺点**：CT-Head和T-Head类别的性能较低，需要进一步优化。
-
-根据具体应用的需求，进一步评估和优化模型性能可能是必要的。如果对检测精度要求较高，可以尝试通过调整模型、增强数据集等方法来提升结果。
-</details>
-**模型评估的具体步骤**
-
-1. **分割数据集**：将数据集分割为训练集、验证集和测试集。
-2. **训练模型**：使用训练集进行模型训练，并在验证集上进行超参数调优。
-3. **评估模型**：在测试集上评估模型性能，使用上述指标（如精度、召回率、mAP、IoU 和 F1 分数）进行评估。
-
-<details> <summary>过程中遇到的问题</summary>
+## 2.1Problems during proj & my solution
 
 **1.数据质量问题**
 在Object Detection任务的数据集中，存在影响模型判断的图片内容通常可以归结为“数据质量问题”。这些问题可能会导致模型在训练和推理阶段产生不准确的预测。具体来说，这些问题包括：
@@ -317,9 +302,9 @@ train/images/image1.jpg
    - 数据增强：通过数据增强技术生成更多的训练数据，提高模型的泛化能力。
 
 过拟合是机器学习中的常见问题，理解其原因和解决方法对于构建能够泛化到新数据的有效模型至关重要。
-</details>
 
 
+## 2.2specific configuration file explanation
 **配置文件示例**
 
 以下是一个 `data.yaml` 文件的示例：
@@ -334,7 +319,48 @@ names: ['class0', 'class1',...]  # 类别名称
 
 通过这种方式，可以方便地对 YOLOv8 模型进行训练和评估，了解模型在不同评估指标上的性能，从而进行优化和改进。
 
-<h2 id="1">user_guide</h2>
+## 2.3result evaluation
+
+下面是模型的具体评估结果：
+![error](result.png)
+
+对结果详细分析
+
+### 性能评估
+1. **总体性能**：
+   - **mAP@0.5（70.2%）**：这个值表示在IoU阈值为0.5时，模型的平均精度是70.2%。这个结果在很多目标检测任务中是不错的，尤其是在复杂的多类别检测任务中。
+   - **mAP@0.5:0.95（38.8%）**：这个值表示在更严格的IoU阈值范围内（从0.5到0.95，步长为0.05）的平均精度。这是一个更严格的指标，38.8%在很多应用中也是可以接受的。
+
+2. **各类别性能**：
+   - **CT-Body（mAP@0.5:0.95 = 47.8%）**：这个类别的检测效果最好，精度和召回率都很高，说明模型在检测CT-Body时表现非常好。
+   - **CT-Head（mAP@0.5:0.95 = 31.7%）** 和 **T-Head（mAP@0.5:0.95 = 28.4%）**：这两个类别的性能较低，说明模型在这两个类别上可能存在一些问题，例如数据不足、数据质量不高或类别区分度不够。
+
+### 其他因素
+1. **应用场景**：
+   - 如果你的应用场景对精度要求非常高（例如医疗图像分析、安全监控等），那么这些结果可能需要进一步优化。
+   - 如果是用于一般的物体检测任务，这个结果是可以接受的。
+
+2. **数据集质量**：
+   - 模型性能在很大程度上依赖于训练数据的质量和多样性。如果数据集本身存在问题（如标签不准确、样本不均衡等），可能需要对数据集进行清理和增强。
+
+3. **模型优化**：
+   - 可以通过调整模型的超参数、进行数据增强、使用更好的训练策略等方法来提高模型的性能。
+   - 可以考虑使用迁移学习，将预训练的权重应用到你的数据集上。
+
+### 总结
+- **优点**：YOLOv8在大多数类别上的表现是不错的，尤其是在CT-Body类别上。
+- **缺点**：CT-Head和T-Head类别的性能较低，需要进一步优化。
+
+根据具体应用的需求，进一步评估和优化模型性能可能是必要的。如果对检测精度要求较高，可以尝试通过调整模型、增强数据集等方法来提升结果。
+</details>
+
+**模型评估的具体步骤**
+
+1. **分割数据集**：将数据集分割为训练集、验证集和测试集。
+2. **训练模型**：使用训练集进行模型训练，并在验证集上进行超参数调优。
+3. **评估模型**：在测试集上评估模型性能，使用上述指标（如精度、召回率、mAP、IoU 和 F1 分数）进行评估。
+
+<h2 id="1">3.user_guide</h2>
 注：由于仓库中也存在前期训练时的一些存在问题的模型和结果，所以请以https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/cs_png的运行结果样例为准，
 同时请采用model_path=r'D:\courseware\AI基础\Lab\proj2\ultralytics-main\ultralytics-main\aim-csgo\models\best.pt'对应路径下的模型
 
