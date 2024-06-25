@@ -18,9 +18,10 @@
 |        |__1.2.2 Common AI Questions
 |
 |__2.Proj Procedure
-|    |__2.1Problems during proj & my solution
-|    |__2.2specific configuration file explanation
-|    |__2.3result evaluation
+|    |__2.1Procedure of the project.
+|    |__2.2Problems during proj & my solution
+|    |__2.3specific configuration file explanation
+|    |__2.4result evaluation
 |
 |__3.User_guid
 
@@ -237,8 +238,16 @@ train/images/image1.jpg
    \]
    F1 分数在精度和召回率之间进行权衡，是一个综合指标。
 
+## 2.1Procedure of the proj
 
-## 2.1Problems during proj & my solution
+1.项目整体了解
+2.参数理解及训练集准备
+3.针对代码开始训练
+4.实时截屏实现及，模型加载代码重构
+5.将代码整合，完成初步识别效果
+6.鼠标监听及控制
+
+## 2.2Problems during proj & my solution
 
 **1.数据质量问题**
 在Object Detection任务的数据集中，存在影响模型判断的图片内容通常可以归结为“数据质量问题”。这些问题可能会导致模型在训练和推理阶段产生不准确的预测。具体来说，这些问题包括：
@@ -304,7 +313,7 @@ train/images/image1.jpg
 过拟合是机器学习中的常见问题，理解其原因和解决方法对于构建能够泛化到新数据的有效模型至关重要。
 
 
-## 2.2specific configuration file explanation
+## 2.3specific configuration file explanation
 **配置文件示例**
 
 以下是一个 `data.yaml` 文件的示例：
@@ -319,7 +328,7 @@ names: ['class0', 'class1',...]  # 类别名称
 
 通过这种方式，可以方便地对 YOLOv8 模型进行训练和评估，了解模型在不同评估指标上的性能，从而进行优化和改进。
 
-## 2.3result evaluation
+## 2.4result evaluation
 
 下面是模型的具体评估结果：
 ![error](result.png)
