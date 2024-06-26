@@ -1,4 +1,4 @@
-# Proj 2 report
+# Proj 2 Report
 
 ## Aimbot for cs2
 
@@ -409,4 +409,4 @@ yolo task=detect mode=predict model=runs/detect/train6/weights/best.pt conf=0.25
 开始运行后可输入自己的阵营ct/t，
 使用shift键开启辅助瞄准。
 
-
+下面是最终汇报的ppt的[传送门](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/show.pptx)
