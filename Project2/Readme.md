@@ -2,9 +2,14 @@
 
 ## Aimbot for cs2
 
+
 ---
 
 ![cs2](https://github.com/kevinyao0901/AI_fundation/blob/main/Project2/Counter-Strike-2.webp)
+
+## Demo
+
+https://github.com/kevinyao0901/AI_fundation/assets/111503954/168f5309-1726-4e3c-8f91-6c839b1de09a
 
 ## Content 
 
